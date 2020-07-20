@@ -7,6 +7,8 @@ import com.github.kimcore.josa.Josa.와과
 import com.github.kimcore.josa.Josa.은는
 import com.github.kimcore.josa.Josa.을를
 import com.github.kimcore.josa.Josa.이가
+import com.github.kimcore.josa.Josa.라이라
+import com.github.kimcore.josa.Josa.야이야
 import org.junit.Test
 import org.junit.Assert.*
 
@@ -47,5 +49,15 @@ class JosaTest {
         assertEquals("사과 3아", "사과 3".아야)
         assertEquals("apple 3야", "apple 3".아야)
         assertEquals("apple 아", "apple ".아야)
+
+        assertEquals("사과라", "사과".라이라)
+        assertEquals("사과 3이라", "사과 3".라이라)
+        assertEquals("apple 3라", "apple 3".라이라)
+        assertEquals("apple 이라", "apple ".라이라)
+
+        assertEquals("사과야", "사과".야이야)
+        assertEquals("사과 3이야", "사과 3".야이야)
+        assertEquals("apple 3야", "apple 3".야이야)
+        assertEquals("apple 이야", "apple ".야이야)
     }
 }
