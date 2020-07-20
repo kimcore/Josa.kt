@@ -4,25 +4,25 @@ package com.github.kimcore.josa
 object Josa {
     private val functions = arrayOf(
         fun(s: String): String {
-            return if (hasJong(s)) "을" else "를"
+            return if (has(s)) "을" else "를"
         },
         fun(s: String): String {
-            return if (hasJong(s)) "은" else "는"
+            return if (has(s)) "은" else "는"
         },
         fun(s: String): String {
-            return if (hasJong(s)) "이" else "가"
+            return if (has(s)) "이" else "가"
         },
         fun(s: String): String {
-            return if (hasJong(s)) "과" else "와"
+            return if (has(s)) "과" else "와"
         },
         fun(s: String): String {
-            return if (hasJong(s)) "으로" else "로"
+            return if (has(s)) "으로" else "로"
         },
         fun(s: String): String {
-            return if (hasJong(s)) "이나" else "나"
+            return if (has(s)) "이나" else "나"
         },
         fun(s: String): String {
-            return if (hasJong(s)) "아" else "야"
+            return if (has(s)) "아" else "야"
         }
     )
 
@@ -57,7 +57,7 @@ object Josa {
         "아야" to functions[6]
     )
 
-    private fun hasJong(s: String): Boolean {
+    private fun has(s: String): Boolean {
         return ("[가-힣]$|/".toRegex().containsMatchIn(s) && (s.trim().last().toInt() - 0xac00) % 28 > 0)
                 || ("[가-힣]\\d*[013678]$|/".toRegex().containsMatchIn(s)
                 || "[a-z]\\d*[1789]$|/i".toRegex().containsMatchIn(s))
@@ -65,50 +65,50 @@ object Josa {
     }
 
     @JvmStatic
-    fun c(s: String, format: String): String {
+    fun get(s: String, format: String): String {
         if (!formats.containsKey(format)) throw UnknownFormatException()
         if (s.isBlank()) return s
         return formats.getValue(format)(s.replace("(.*)/gi".toRegex(), "").replace("[^가-힣a-z\\d]".toRegex(), ""))
     }
 
     @JvmStatic
-    fun r(s: String, format: String): String {
+    fun getAttached(s: String, format: String): String {
         if (s.isBlank()) return s
-        return s + c(s, format)
+        return s + get(s, format)
     }
 
     @JvmStatic
     fun String.josa(format: String): String {
-        return r(this, format)
+        return getAttached(this, format)
     }
 
     @JvmStatic
     val String.을를: String
-        get() = r(this, "을/를")
+        get() = getAttached(this, "을/를")
 
     @JvmStatic
     val String.은는: String
-        get() = r(this, "은/는")
+        get() = getAttached(this, "은/는")
 
     @JvmStatic
     val String.이가: String
-        get() = r(this, "이/가")
+        get() = getAttached(this, "이/가")
 
     @JvmStatic
     val String.와과: String
-        get() = r(this, "와/과")
+        get() = getAttached(this, "와/과")
 
     @JvmStatic
     val String.로으로: String
-        get() = r(this, "로/으로")
+        get() = getAttached(this, "로/으로")
 
     @JvmStatic
     val String.나이나: String
-        get() = r(this, "나/이나")
+        get() = getAttached(this, "나/이나")
 
     @JvmStatic
     val String.아야: String
-        get() = r(this, "아/야")
+        get() = getAttached(this, "아/야")
 
     class UnknownFormatException : Exception("Unknown format for Josa.")
 }
