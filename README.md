@@ -1,6 +1,6 @@
 # Josa.kt
-[![image](https://img.shields.io/jitpack/v/github/kimcore/inko.kt?style=flat-square)](https://github.com/kimcore/inko.kt/releases)
-[![image](https://img.shields.io/github/license/kimcore/inko.kt?style=flat-square)](https://github.com/kimcore/inko.kt/blob/master/LICENSE)
+[![image](https://img.shields.io/jitpack/v/github/kimcore/Josa.kt?style=flat-square)](https://github.com/kimcore/Josa.kt/releases)
+[![image](https://img.shields.io/github/license/kimcore/Josa.kt?style=flat-square)](https://github.com/kimcore/Josa.kt/blob/master/LICENSE)
 
 > 조사를 자동으로 교정하는 Kotlin 라이브러리입니다. Java 프로젝트에서도 사용할 수 있습니다.
 
