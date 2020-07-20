@@ -67,13 +67,13 @@ object Josa {
     @JvmStatic
     fun get(s: String, format: String): String {
         if (!formats.containsKey(format)) throw UnknownFormatException()
-        if (s.isBlank()) return s
-        return formats.getValue(format)(s.replace("(.*)/gi".toRegex(), "").replace("[^가-힣a-z\\d]".toRegex(), ""))
+        val value = s.replace("(.*)/gi".toRegex(), "").replace("[^가-힣a-z\\d]".toRegex(), "")
+        if (value.isBlank()) return ""
+        return formats.getValue(format)(value)
     }
 
     @JvmStatic
     fun getAttached(s: String, format: String): String {
-        if (s.isBlank()) return s
         return s + get(s, format)
     }
 
