@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.kimcore:Josa.kt:1.0'
+    implementation 'com.github.kimcore:Josa.kt:1.1'
 }
 ```
 Maven
@@ -30,7 +30,7 @@ Maven
     <dependency>
         <groupId>com.github.kimcore</groupId>
         <artifactId>Josa.kt</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
     </dependency>
 </dependencies>
 ```
@@ -45,10 +45,12 @@ import com.github.kimcore.josa.Josa.와과
 import com.github.kimcore.josa.Josa.은는
 import com.github.kimcore.josa.Josa.을를
 import com.github.kimcore.josa.Josa.이가
+import com.github.kimcore.josa.Josa.라이라
+import com.github.kimcore.josa.Josa.야이야
 
 println("샌즈".은는) // 샌즈는
 
-println("준식".아야) // 준식아
+println("난 ${"준식".야이야}!") // 난 준식이야!
 ```
 #### String.josa 사용
 ```kotlin
@@ -76,6 +78,7 @@ println(Josa.get("준식", "은/는")) // 은
 * 은/는
 * 을/를
 * 이/가
+* 라/이라
  
 #### 지원되지 않는 포맷을 입력할 경우
  ```kotlin

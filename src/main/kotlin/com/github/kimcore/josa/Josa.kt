@@ -23,6 +23,12 @@ object Josa {
         },
         fun(s: String): String {
             return if (has(s)) "아" else "야"
+        },
+        fun(s: String): String {
+            return if (has(s)) "이라" else "라"
+        },
+        fun(s: String): String {
+            return if (has(s)) "이야" else "야"
         }
     )
 
@@ -39,7 +45,9 @@ object Josa {
         "와/과" to functions[3], "와" to functions[3], "과" to functions[3], "와과" to functions[3],
         "로/으로" to functions[4], "로" to functions[4], "으로" to functions[4], "로으로" to functions[4],
         "나/이나" to functions[5], "나" to functions[5], "이나" to functions[5], "나이나" to functions[5],
-        "아/야" to functions[6], "아" to functions[6], "야" to functions[6], "아야" to functions[6]
+        "아/야" to functions[6], "아" to functions[6], "야" to functions[6], "아야" to functions[6],
+        "라/이라" to functions[7], "라" to functions[7], "이라" to functions[7], "라이라" to functions[7],
+        "야/이야" to functions[8], "야" to functions[8], "이야" to functions[8], "야이야" to functions[8]
     )
 
     @JvmStatic
@@ -83,6 +91,14 @@ object Josa {
     @JvmStatic
     val String.아야: String
         get() = getAttached(this, "아/야")
+
+    @JvmStatic
+    val String.라이라: String
+        get() = getAttached(this, "라/이라")
+
+    @JvmStatic
+    val String.야이야: String
+        get() = getAttached(this, "야/이야")
 
     class UnknownFormatException : Exception("Unknown format for Josa.")
 }
