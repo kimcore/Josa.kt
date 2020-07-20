@@ -26,43 +26,21 @@ object Josa {
         }
     )
 
-    private val formats = mapOf(
-        "을/를" to functions[0],
-        "을" to functions[0],
-        "를" to functions[0],
-        "을를" to functions[0],
-        "은/는" to functions[1],
-        "은" to functions[1],
-        "는" to functions[1],
-        "은는" to functions[1],
-        "이/가" to functions[2],
-        "이" to functions[2],
-        "가" to functions[2],
-        "이가" to functions[2],
-        "와/과" to functions[3],
-        "와" to functions[3],
-        "과" to functions[3],
-        "와과" to functions[3],
-        "로/으로" to functions[4],
-        "로" to functions[4],
-        "으로" to functions[4],
-        "로으로" to functions[4],
-        "나/이나" to functions[5],
-        "나" to functions[5],
-        "이나" to functions[5],
-        "나이나" to functions[5],
-        "아/야" to functions[6],
-        "아" to functions[6],
-        "야" to functions[6],
-        "아야" to functions[6]
-    )
-
-    private fun has(s: String): Boolean {
-        return ("[가-힣]$|/".toRegex().containsMatchIn(s) && (s.trim().last().toInt() - 0xac00) % 28 > 0)
+    private fun has(s: String): Boolean =
+        ("[가-힣]$|/".toRegex().containsMatchIn(s) && (s.trim().last().toInt() - 0xac00) % 28 > 0)
                 || ("[가-힣]\\d*[013678]$|/".toRegex().containsMatchIn(s)
                 || "[a-z]\\d*[1789]$|/i".toRegex().containsMatchIn(s))
                 || "([clmnp]|[blnt](e)|[co](k)|[aeiou](t)|mb|ng|lert)$|/i".toRegex().containsMatchIn(s)
-    }
+
+    private val formats = mapOf(
+        "을/를" to functions[0], "을" to functions[0], "를" to functions[0], "을를" to functions[0],
+        "은/는" to functions[1], "은" to functions[1], "는" to functions[1], "은는" to functions[1],
+        "이/가" to functions[2], "이" to functions[2], "가" to functions[2], "이가" to functions[2],
+        "와/과" to functions[3], "와" to functions[3], "과" to functions[3], "와과" to functions[3],
+        "로/으로" to functions[4], "로" to functions[4], "으로" to functions[4], "로으로" to functions[4],
+        "나/이나" to functions[5], "나" to functions[5], "이나" to functions[5], "나이나" to functions[5],
+        "아/야" to functions[6], "아" to functions[6], "야" to functions[6], "아야" to functions[6]
+    )
 
     @JvmStatic
     fun get(s: String, format: String): String {
@@ -73,14 +51,10 @@ object Josa {
     }
 
     @JvmStatic
-    fun getAttached(s: String, format: String): String {
-        return s + get(s, format)
-    }
+    fun getAttached(s: String, format: String): String = s + get(s, format)
 
     @JvmStatic
-    fun String.josa(format: String): String {
-        return getAttached(this, format)
-    }
+    fun String.josa(format: String): String = getAttached(this, format)
 
     @JvmStatic
     val String.을를: String
