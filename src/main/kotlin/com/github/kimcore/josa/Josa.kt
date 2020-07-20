@@ -5,7 +5,6 @@ object Josa {
     private val handlers = arrayOf(
         { s: String -> if (has(s)) "을" else "를" },
         { s: String -> if (has(s)) "은" else "는" },
-        { s: String -> if (has(s)) "은" else "는" },
         { s: String -> if (has(s)) "이" else "가" },
         { s: String -> if (has(s)) "과" else "와" },
         { s: String -> if (has(s)) "으로" else "로" },
