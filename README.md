@@ -77,7 +77,7 @@ println(Josa.get("준식", "은/는")) // 은
 * 을/를
 * 이/가
  
-> 지원되지 않는 포맷을 입력할 경우
+#### 지원되지 않는 포맷을 입력할 경우
  ```kotlin
 import com.github.kimcore.josa.Josa
 import com.github.kimcore.josa.Josa.josa
