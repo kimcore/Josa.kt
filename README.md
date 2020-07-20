@@ -68,6 +68,25 @@ println(Josa.getAttached("준식", "아/야")) // 준식아
 
 println(Josa.get("준식", "은/는")) // 은
 ```
+## 지원되는 포맷
+* 나/이나
+* 로/으로
+* 아/야
+* 와/과
+* 은/는
+* 을/를
+* 이/가
+ 
+> 지원되지 않는 포맷을 입력할 경우
+ ```kotlin
+import com.github.kimcore.josa.Josa
+import com.github.kimcore.josa.Josa.josa
+try {
+    println("샌즈".josa("존재하지 않는 포맷"))
+} catch(e: Josa.UnknownFormatException) {
+    println("지원되지 않는 포맷입니다!")
+}
+ ```
 ## 라이선스
 Josa.kt 라이브러리는 MIT 라이선스를 따르고 있습니다. 자세한 내용은 [LICENSE](https://github.com/JackCme/inko.py/blob/master/LICENSE) 파일을 참고해주세요.
 ## 감사한 분들
