@@ -65,7 +65,7 @@ object Josa {
     fun get(s: String, format: String): String {
         if (!formats.containsKey(format)) throw UnknownFormatException()
         val value = replace(s)
-        if (value.isBlank()) return ""
+        if (value.isBlank()) return "을(를)"
         return formats.getValue(format)(value)
     }
 
