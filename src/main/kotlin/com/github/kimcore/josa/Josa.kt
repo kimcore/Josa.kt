@@ -27,13 +27,16 @@ object Josa {
     )
 
     private fun has(s: String): Boolean =
-        ("[가-힣]$|/".toRegex().containsMatchIn(s) && (s.trim().last().toInt() - 0xac00) % 28 > 0)
-                || ("[가-힣]\\d*[013678]$|/".toRegex().containsMatchIn(s)
-                || "[a-z]\\d*[1789]$|/i".toRegex().containsMatchIn(s))
-                || "([clmnp]|[blnt](e)|[co](k)|[aeiou](t)|mb|ng|lert)$|/i".toRegex().containsMatchIn(s)
+        ("[가-힣]$".toRegex().containsMatchIn(s) && (s.trim().last().toInt() - 0xac00) % 28 > 0)
+                || ("[가-힣]\\d*[013678]$".toRegex().containsMatchIn(s)
+                || "[a-z]\\d*[1789]$".toRegex(RegexOption.IGNORE_CASE).containsMatchIn(s))
+                || (s.trim().length != 1 && "([clmnp]|[blnt](e)|[co](k)|[aeiou](t)|mb|ng|lert)$".toRegex(RegexOption.IGNORE_CASE).containsMatchIn(s))
+                || (s.trim().length == 1 && "[lnmr]$".toRegex(RegexOption.IGNORE_CASE).matches(s))
+                || ("\\d$".toRegex().matches(s) && "[013678]$".toRegex().containsMatchIn(s))
 
     private fun replace(s: String): String = s
-        .replace("(.*)/gi".toRegex(), "").replace("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z\\d]".toRegex(), "")
+        .replace("\\(.*\\)".toRegex(RegexOption.IGNORE_CASE), "")
+        .replace("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z\\d]".toRegex(RegexOption.IGNORE_CASE), "")
         .replace("ㄳ", "ㄱㅅ").replace("ㄵ", "ㄴㅈ")
         .replace("ㄼ", "ㄹㅂ").replace("ㄽ", "ㄹㅅ")
         .replace("ㄾ", "ㄹㅌ").replace("ㅄ", "ㅂㅅ")
