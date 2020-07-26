@@ -2,6 +2,7 @@ package com.github.kimcore.josa
 
 @Suppress("ObjectPropertyName", "NonAsciiCharacters", "unused")
 object Josa {
+    const val VERSION = "1.3"
     private val handlers = arrayOf(
         { s: String -> if (has(s)) "을" else "를" },
         { s: String -> if (has(s)) "은" else "는" },
