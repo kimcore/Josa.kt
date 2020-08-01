@@ -33,7 +33,7 @@ object Josa {
                 || "[a-z]\\d*[1789]$".toRegex(RegexOption.IGNORE_CASE).containsMatchIn(s))
                 || (s.trim().length != 1 && "([clmnp]|[blnt](e)|[co](k)|[aeiou](t)|mb|ng|lert)$".toRegex(RegexOption.IGNORE_CASE).containsMatchIn(s))
                 || (s.trim().length == 1 && "[lnmr]$".toRegex(RegexOption.IGNORE_CASE).matches(s))
-                || ("\\d$".toRegex().matches(s) && "[013678]$".toRegex().containsMatchIn(s))
+                || ("[\\d]+$".toRegex().matches(s) && "[013678]$".toRegex().containsMatchIn(s))
 
     private fun replace(s: String): String = s
         .replace("\\(.*\\)".toRegex(RegexOption.IGNORE_CASE), "")

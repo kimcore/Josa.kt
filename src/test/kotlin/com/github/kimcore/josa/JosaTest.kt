@@ -60,7 +60,7 @@ class JosaTest {
         assertEquals("apple 3야", "apple 3".야이야)
         assertEquals("apple 이야", "apple ".야이야)
 
-        // 숫자 0-9
+        // 숫자 0-12
         assertEquals("0을", "0".을를)
         assertEquals("1을", "1".을를)
         assertEquals("2를", "2".을를)
@@ -71,6 +71,9 @@ class JosaTest {
         assertEquals("7을", "7".을를)
         assertEquals("8을", "8".을를)
         assertEquals("9를", "9".을를)
+        assertEquals("10을", "10".을를)
+        assertEquals("11을", "11".을를)
+        assertEquals("12를", "12".을를)
 
         // 알파벳 a-z
         assertEquals("a를", "a".을를)
