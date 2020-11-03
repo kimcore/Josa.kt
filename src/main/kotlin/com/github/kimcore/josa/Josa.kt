@@ -36,7 +36,6 @@ object Josa {
                 || ("[\\d]+$".toRegex().matches(s) && "[013678]$".toRegex().containsMatchIn(s))
 
     private fun replace(s: String): String = s
-        .replace("\\(.*\\)".toRegex(RegexOption.IGNORE_CASE), "")
         .replace("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z\\d]".toRegex(RegexOption.IGNORE_CASE), "")
         .replace("ㄳ", "ㄱㅅ").replace("ㄵ", "ㄴㅈ")
         .replace("ㄼ", "ㄹㅂ").replace("ㄽ", "ㄹㅅ")
