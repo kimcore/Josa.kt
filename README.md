@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.kimcore:Josa.kt:1.4'
+    implementation 'im.kimcore:Josa.kt:1.5'
 }
 ```
 Maven
@@ -28,9 +28,9 @@ Maven
 
 <dependencies>
     <dependency>
-        <groupId>com.github.kimcore</groupId>
+        <groupId>im.kimcore</groupId>
         <artifactId>Josa.kt</artifactId>
-        <version>1.4</version>
+        <version>1.5</version>
     </dependency>
 </dependencies>
 ```
