@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-    implementation 'im.kimcore:Josa.kt:1.5'
+    implementation 'im.kimcore:Josa.kt:1.6'
 }
 ```
 Maven
@@ -30,7 +30,7 @@ Maven
     <dependency>
         <groupId>im.kimcore</groupId>
         <artifactId>Josa.kt</artifactId>
-        <version>1.5</version>
+        <version>1.6</version>
     </dependency>
 </dependencies>
 ```
@@ -80,15 +80,24 @@ println(Josa.get("준식", "은/는")) // 은
 * 이/가
 * 라/이라
 * 야/이야
- 
-#### 지원되지 않는 포맷을 입력할 경우
+
+## 커스텀 포맷
+기본으로 지원하는 포맷 외에도, 사용자가 직접 지정한 포맷을 사용할 수 있습니다.
+`을/를`같이 적용할 조사를 `/`로 구분하여 받침이 있는 경우를 앞에, 받침이 없는 경우를 뒤에 입력하시면 됩니다.
+```kotlin
+import com.github.kimcore.josa.Josa.josa
+
+println("2".josa("이었/였") + "습니다!") // 2였습니다!
+println("3".josa("이었/였") + "습니다!") // 3이었습니다!
+```
+#### 잘못된 포맷을 입력할 경우
  ```kotlin
 import com.github.kimcore.josa.Josa
 import com.github.kimcore.josa.Josa.josa
 try {
-    println("샌즈".josa("존재하지 않는 포맷"))
-} catch(e: Josa.UnknownFormatException) {
-    println("지원되지 않는 포맷입니다!")
+    println("샌즈".josa("잘못된 포맷"))
+} catch(e: Josa.MalformedFormatException) {
+    println("잘못된 포맷입니다!")
 }
  ```
 ## 라이선스

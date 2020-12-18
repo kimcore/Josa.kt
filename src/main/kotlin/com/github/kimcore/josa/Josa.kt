@@ -66,9 +66,14 @@ object Josa {
 
     @JvmStatic
     fun get(s: String, format: String): String {
-        if (!formats.containsKey(format)) throw UnknownFormatException()
+        if (!format.contains("/") || format.count { it == '/' } > 1) throw MalformedFormatException()
+        val handler = formats.getOrDefault(format) {
+            val first = format.split("/")[0]
+            val second = format.split("/")[1]
+            if (has(it)) first else second
+        }
         val value = replace(s)
-        if (value.isBlank()) return when (formats.getValue(format)) {
+        if (value.isBlank()) return when (handler) {
             handlers[0] -> "을(를)"
             handlers[1] -> "은(는)"
             handlers[2] -> "이(가)"
@@ -77,9 +82,10 @@ object Josa {
             handlers[5] -> "(이)나"
             handlers[6] -> "아(야)"
             handlers[7] -> "(이)라"
-            else -> "(이)야"
+            handlers[8] -> "(이)야"
+            else -> "(${format.split("/")[0]})${format.split("/")[1]}"
         }
-        return formats.getValue(format)(value)
+        return handler(value)
     }
 
     @JvmStatic
@@ -124,5 +130,5 @@ object Josa {
     val String.야이야: String
         get() = getAttached(this, "야/이야")
 
-    class UnknownFormatException : Exception("Unknown format for Josa.")
+    class MalformedFormatException : Exception("Malformed format for Josa.")
 }

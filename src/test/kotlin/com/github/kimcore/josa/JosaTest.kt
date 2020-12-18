@@ -1,5 +1,6 @@
 package com.github.kimcore.josa
 
+import com.github.kimcore.josa.Josa.josa
 import com.github.kimcore.josa.Josa.나이나
 import com.github.kimcore.josa.Josa.로으로
 import com.github.kimcore.josa.Josa.아야
@@ -102,5 +103,9 @@ class JosaTest {
         assertEquals("x를", "x".을를)
         assertEquals("y를", "y".을를)
         assertEquals("z를", "z".을를)
+
+        // 커스텀 포맷
+        assertEquals("2였", "2".josa("이었/였"))
+        assertEquals("3이었", "3".josa("이었/였"))
     }
 }
