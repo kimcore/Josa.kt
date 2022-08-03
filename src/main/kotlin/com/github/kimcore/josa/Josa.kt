@@ -2,131 +2,102 @@ package com.github.kimcore.josa
 
 @Suppress("ObjectPropertyName", "NonAsciiCharacters", "unused")
 object Josa {
-    const val VERSION = "1.4"
-    private val handlers = arrayOf(
-        { s: String -> if (has(s)) "을" else "를" },
-        { s: String -> if (has(s)) "은" else "는" },
-        { s: String -> if (has(s)) "이" else "가" },
-        { s: String -> if (has(s)) "과" else "와" },
-        { s: String -> if (has(s)) "으로" else "로" },
-        { s: String -> if (has(s)) "이나" else "나" },
-        { s: String -> if (has(s)) "아" else "야" },
-        { s: String -> if (has(s)) "이라" else "라" },
-        { s: String -> if (has(s)) "이야" else "야" }
+    const val VERSION = "1.7"
+
+    private val toReplace = mapOf(
+        "ㄳ" to "ㄱㅅ", "ㄵ" to "ㄴㅈ",
+        "ㄼ" to "ㄹㅂ", "ㄽ" to "ㄹㅅ",
+        "ㄾ" to "ㄹㅌ", "ㅄ" to "ㅂㅅ",
+        "ㄺ" to "ㄹㄱ", "ㄻ" to "ㄹㅁ",
+        "ㄿ" to "ㄹㅍ", "ㄶ" to "ㄴㅎ",
+        "ㅀ" to "ㄹㅎ", "ㄱ" to "기역",
+        "ㄴ" to "니은", "ㄷ" to "디귿",
+        "ㄹ" to "리을", "ㅁ" to "미음",
+        "ㅂ" to "비읍", "ㅅ" to "시옷",
+        "ㅇ" to "이응", "ㅈ" to "지읒",
+        "ㅊ" to "치읓", "ㅋ" to "키읔",
+        "ㅌ" to "티읕", "ㅍ" to "피읖",
+        "ㅎ" to "히읗", "ㄲ" to "쌍기역",
+        "ㄸ" to "쌍디귿", "ㅃ" to "쌍비읍",
+        "ㅆ" to "쌍시옷", "ㅉ" to "쌍지읒",
+        "ㅏ" to "아", "ㅓ" to "어",
+        "ㅗ" to "오", "ㅜ" to "우",
+        "ㅡ" to "으", "ㅣ" to "이",
+        "ㅐ" to "애", "ㅔ" to "에",
+        "ㅚ" to "외", "ㅟ" to "위",
+        "ㅑ" to "야", "ㅕ" to "여",
+        "ㅛ" to "요", "ㅠ" to "유",
+        "ㅒ" to "얘", "ㅖ" to "예",
+        "ㅘ" to "와", "ㅙ" to "왜",
+        "ㅝ" to "워", "ㅞ" to "웨",
+        "ㅢ" to "의",
     )
-
-    private val formats = mapOf(
-        "을/를" to handlers[0], "을" to handlers[0], "를" to handlers[0], "을를" to handlers[0],
-        "은/는" to handlers[1], "은" to handlers[1], "는" to handlers[1], "은는" to handlers[1],
-        "이/가" to handlers[2], "이" to handlers[2], "가" to handlers[2], "이가" to handlers[2],
-        "와/과" to handlers[3], "와" to handlers[3], "과" to handlers[3], "와과" to handlers[3],
-        "로/으로" to handlers[4], "로" to handlers[4], "으로" to handlers[4], "로으로" to handlers[4],
-        "나/이나" to handlers[5], "나" to handlers[5], "이나" to handlers[5], "나이나" to handlers[5],
-        "아/야" to handlers[6], "아" to handlers[6], "야" to handlers[6], "아야" to handlers[6],
-        "라/이라" to handlers[7], "라" to handlers[7], "이라" to handlers[7], "라이라" to handlers[7],
-        "야/이야" to handlers[8], "야" to handlers[8], "이야" to handlers[8], "야이야" to handlers[8]
-    )
-
-    private fun has(s: String): Boolean =
-        ("[가-힣]$".toRegex().containsMatchIn(s) && (s.trim().last().toInt() - 0xac00) % 28 > 0)
-                || ("[가-힣]\\d*[013678]$".toRegex().containsMatchIn(s)
-                || "[a-z]\\d*[1789]$".toRegex(RegexOption.IGNORE_CASE).containsMatchIn(s))
-                || (s.trim().length != 1 && "([clmnp]|[blnt](e)|[co](k)|[aeiou](t)|mb|ng|lert)$".toRegex(RegexOption.IGNORE_CASE).containsMatchIn(s))
-                || (s.trim().length == 1 && "[lnmr]$".toRegex(RegexOption.IGNORE_CASE).matches(s))
-                || ("[\\d]+$".toRegex().matches(s) && "[013678]$".toRegex().containsMatchIn(s))
-
-    private fun replace(s: String): String = s
-        .replace("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z\\d]".toRegex(RegexOption.IGNORE_CASE), "")
-        .replace("ㄳ", "ㄱㅅ").replace("ㄵ", "ㄴㅈ")
-        .replace("ㄼ", "ㄹㅂ").replace("ㄽ", "ㄹㅅ")
-        .replace("ㄾ", "ㄹㅌ").replace("ㅄ", "ㅂㅅ")
-        .replace("ㄺ", "ㄹㄱ").replace("ㄻ", "ㄹㅁ")
-        .replace("ㄿ", "ㄹㅍ").replace("ㄶ", "ㄴㅎ")
-        .replace("ㅀ", "ㄹㅎ").replace("ㄱ", "기역")
-        .replace("ㄴ", "니은").replace("ㄷ", "디귿")
-        .replace("ㄹ", "리을").replace("ㅁ", "미음")
-        .replace("ㅂ", "비읍").replace("ㅅ", "시옷")
-        .replace("ㅇ", "이응").replace("ㅈ", "지읒")
-        .replace("ㅊ", "치읓").replace("ㅋ", "키읔")
-        .replace("ㅌ", "티읕").replace("ㅍ", "피읖")
-        .replace("ㅎ", "히읗").replace("ㄲ", "쌍기역")
-        .replace("ㄸ", "쌍디귿").replace("ㅃ", "쌍비읍")
-        .replace("ㅆ", "쌍시옷").replace("ㅉ", "쌍지읒")
-        .replace("ㅏ", "아").replace("ㅓ", "어")
-        .replace("ㅗ", "오").replace("ㅜ", "우")
-        .replace("ㅡ", "으").replace("ㅣ", "이")
-        .replace("ㅐ", "애").replace("ㅔ", "에")
-        .replace("ㅚ", "외").replace("ㅟ", "위")
-        .replace("ㅑ", "야").replace("ㅕ", "여")
-        .replace("ㅛ", "요").replace("ㅠ", "유")
-        .replace("ㅒ", "얘").replace("ㅖ", "예")
-        .replace("ㅘ", "와").replace("ㅙ", "왜")
-        .replace("ㅝ", "워").replace("ㅞ", "웨")
-        .replace("ㅢ", "의")
 
     @JvmStatic
-    fun get(s: String, format: String): String {
-        if (!format.contains("/") || format.count { it == '/' } > 1) throw MalformedFormatException()
-        val handler = formats.getOrDefault(format) {
-            val first = format.split("/")[0]
-            val second = format.split("/")[1]
-            if (has(it)) first else second
+    fun get(input: String, format: String, alternative: String? = null): String {
+        if (format.count { it == '/' } != 1) {
+            throw MalformedFormatException()
         }
-        val value = replace(s)
-        if (value.isBlank()) return when (handler) {
-            handlers[0] -> "을(를)"
-            handlers[1] -> "은(는)"
-            handlers[2] -> "이(가)"
-            handlers[3] -> "와(과)"
-            handlers[4] -> "(으)로"
-            handlers[5] -> "(이)나"
-            handlers[6] -> "아(야)"
-            handlers[7] -> "(이)라"
-            handlers[8] -> "(이)야"
-            else -> "(${format.split("/")[0]})${format.split("/")[1]}"
+
+        val (first, second) = format.split('/')
+
+        var value = input
+            .replace("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z\\d]".toRegex(RegexOption.IGNORE_CASE), "")
+
+        toReplace.forEach { (k, v) ->
+            value = value.replace(k, v)
         }
-        return handler(value)
+
+        if (value.isBlank()) {
+            return alternative ?: when ((first + second).replace(" ", "")) {
+                "로으로" -> "(으)로"
+                "나이나" -> "(이)나"
+                "라이라" -> "(이)라"
+                "야이야" -> "(이)야"
+                else -> "($first)$second"
+            }
+        }
+
+        val hasConsonant = ("[가-힣]$".toRegex().containsMatchIn(value) && (value.trim().last().code - 0xac00) % 28 > 0)
+                || ("[가-힣]\\d*[013678]$".toRegex().containsMatchIn(value)
+                || "[a-z]\\d*[1789]$".toRegex(RegexOption.IGNORE_CASE).containsMatchIn(value))
+                || (value.trim().length != 1 && "([clmnp]|[blnt](e)|[co](k)|[aeiou](t)|mb|ng|lert)$".toRegex(RegexOption.IGNORE_CASE)
+            .containsMatchIn(value))
+                || (value.trim().length == 1 && "[lnmr]$".toRegex(RegexOption.IGNORE_CASE).matches(value))
+                || ("[\\d]+$".toRegex().matches(value) && "[013678]$".toRegex().containsMatchIn(value))
+
+        return if (hasConsonant) first else second
     }
 
-    @JvmStatic
-    fun getAttached(s: String, format: String): String = s + get(s, format)
+    fun getAttached(input: String, format: String, alternative: String? = null) =
+        input + get(input, format, alternative)
 
-    @JvmStatic
-    fun String.josa(format: String): String = getAttached(this, format)
+    fun String.josa(format: String, alternative: String? = null) = getAttached(this, format, alternative)
 
-    @JvmStatic
     val String.을를: String
         get() = getAttached(this, "을/를")
 
-    @JvmStatic
     val String.은는: String
         get() = getAttached(this, "은/는")
 
-    @JvmStatic
     val String.이가: String
         get() = getAttached(this, "이/가")
 
-    @JvmStatic
     val String.와과: String
         get() = getAttached(this, "와/과")
 
-    @JvmStatic
     val String.로으로: String
         get() = getAttached(this, "로/으로")
 
-    @JvmStatic
     val String.나이나: String
         get() = getAttached(this, "나/이나")
 
-    @JvmStatic
     val String.아야: String
         get() = getAttached(this, "아/야")
 
-    @JvmStatic
     val String.라이라: String
         get() = getAttached(this, "라/이라")
 
-    @JvmStatic
     val String.야이야: String
         get() = getAttached(this, "야/이야")
 

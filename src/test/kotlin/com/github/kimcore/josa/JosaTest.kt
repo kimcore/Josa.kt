@@ -10,8 +10,8 @@ import com.github.kimcore.josa.Josa.을를
 import com.github.kimcore.josa.Josa.이가
 import com.github.kimcore.josa.Josa.라이라
 import com.github.kimcore.josa.Josa.야이야
-import org.junit.Test
-import org.junit.Assert.*
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions.assertEquals
 
 class JosaTest {
     @Test

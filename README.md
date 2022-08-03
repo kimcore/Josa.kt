@@ -5,34 +5,14 @@
 > 조사를 자동으로 교정하는 Kotlin 라이브러리입니다. Java 프로젝트에서도 사용할 수 있습니다.
 
 ## 설치
-Gradle
 ```gradle
-allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
+repositories {
+    maven("https://jitpack.io")
 }
 
 dependencies {
-    implementation 'im.kimcore:Josa.kt:1.6'
+    implementation("com.github.kimcore", "Josa.kt", "1.7")
 }
-```
-Maven
-```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-
-<dependencies>
-    <dependency>
-        <groupId>im.kimcore</groupId>
-        <artifactId>Josa.kt</artifactId>
-        <version>1.6</version>
-    </dependency>
-</dependencies>
 ```
 ## 사용법
 Josa.kt는 3가지 방법으로 사용할 수 있습니다.
