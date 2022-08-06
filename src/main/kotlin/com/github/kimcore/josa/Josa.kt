@@ -66,7 +66,7 @@ object Josa {
                 || (value.trim().length == 1 && "[lnmr]$".toRegex(RegexOption.IGNORE_CASE).matches(value))
                 || ("[\\d]+$".toRegex().matches(value) && "[013678]$".toRegex().containsMatchIn(value))
 
-        return if (hasConsonant) second else first
+        return if (hasConsonant) first else second
     }
 
     fun getAttached(input: String, format: String, alternative: String? = null) =
