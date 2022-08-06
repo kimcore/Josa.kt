@@ -2,7 +2,7 @@ package com.github.kimcore.josa
 
 @Suppress("ObjectPropertyName", "NonAsciiCharacters", "unused")
 object Josa {
-    const val VERSION = "1.7"
+    const val VERSION = "1.8"
 
     private val toReplace = mapOf(
         "ㄳ" to "ㄱㅅ", "ㄵ" to "ㄴㅈ",
@@ -66,7 +66,7 @@ object Josa {
                 || (value.trim().length == 1 && "[lnmr]$".toRegex(RegexOption.IGNORE_CASE).matches(value))
                 || ("[\\d]+$".toRegex().matches(value) && "[013678]$".toRegex().containsMatchIn(value))
 
-        return if (hasConsonant) first else second
+        return if (hasConsonant) second else first
     }
 
     fun getAttached(input: String, format: String, alternative: String? = null) =
@@ -84,19 +84,19 @@ object Josa {
         get() = getAttached(this, "이/가")
 
     val String.와과: String
-        get() = getAttached(this, "와/과")
+        get() = getAttached(this, "과/와")
 
     val String.로으로: String
-        get() = getAttached(this, "로/으로")
+        get() = getAttached(this, "으로/로")
 
     val String.나이나: String
-        get() = getAttached(this, "나/이나")
+        get() = getAttached(this, "이나/나")
 
     val String.아야: String
         get() = getAttached(this, "아/야")
 
     val String.라이라: String
-        get() = getAttached(this, "라/이라")
+        get() = getAttached(this, "이라/라")
 
     val String.야이야: String
         get() = getAttached(this, "야/이야")

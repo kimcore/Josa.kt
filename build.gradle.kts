@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.kimcore"
-version = "1.7"
+version = "1.8"
 
 repositories {
     mavenCentral()
